@@ -29,9 +29,17 @@ eMark Wireless Multimeter is a device which can measure voltage and current valu
 ### New Ideas
 New Ideas are always welcome. Talk to your mentor and convince him/her that this new idea/feature for this hardware is useful, easy to build and can be built in the time duration. 
 
-
-
 ## NTWoC Guidelines for this project
 
 Anyone can choose to participate in NTWoC from SRM. It is free, it is open and everyone gets a fair chance.
 
+1) No plaigarism. Try to work on your project without stealing credits or code.  
+2) Fellow participants are not competitors. Work alongside them, and build a very good project.  
+3) Try to finish the tasks at hand that are assigned to you or are self-assigned.
+
+### Contributing to this Project
+Read Contributing.md file in the repository to learn more about making pull requests, and contributing in general.
+
+## Project Maintainers
+The project is currently being maintained by :  
+1) Projjal Gupta (paltrickontpb) - Next Tech Lab
