@@ -4,6 +4,16 @@
 
 eMark Wireless multimeter is an open-source project, aimed towards building a cheap wireless multimeter device for hobbyists and enthusiasts. This project is a part of Next Tech's Winter of Code, and all the hardware designed will be openly accessible to the public in the form of schematics and gerber files.
 
+## Technical Details
+### Ideal Choice of Hardware
+Choice of Hardware  - PIC16F18855-I/SS (8bit-Low Power PIC Microcontroller)  
+Choice of Peripherals - HM-10 BLE, ESP8266-12E, INA219  
+Choice of Communication Protocol - UART (Tx-Rx Comms.)  
+
+### Extra features
+Low Power consumption  
+State Machine based command set  
+
 ## NTWoC Project Details
 
 ### Abstract
