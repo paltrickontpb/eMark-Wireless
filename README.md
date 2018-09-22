@@ -6,7 +6,7 @@ eMark Wireless multimeter is an open-source project, aimed towards building a ch
 
 ## Technical Details
 ### Ideal Choice of Hardware
-Choice of Hardware  - PIC16F18855-I/SS (8bit-Low Power PIC Microcontroller)  
+Choice of Hardware  - Atmel ATMEGA328  
 Choice of Peripherals - HM-10 BLE, ESP8266-12E, INA219  
 Choice of Communication Protocol - UART (Tx-Rx Comms.)  
 
@@ -23,7 +23,7 @@ eMark Wireless Multimeter is a device which can measure voltage and current valu
 ### Skill Requirements (You can apply if you have any one of the skills mentioned below)
 
 1) Hardware Designer (To Work on electronic schematics using EagleCAD or KiCAD).  
-2) Hardware Programmer (Will write code to control the hardware, preferably Embedded C).  
+2) Hardware Programmer (Will write code to control the hardware).  
 3) App Developer (Will create the Android/IOS/Windows/Hybrid Web App to create a User Interface for the Project).  
 
 ### Ideas that can be implemented
