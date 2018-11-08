@@ -1,4 +1,5 @@
 #include <Wire.h>
+#include <SoftwareSerial.h>
 #include <Adafruit_INA219.h>
 
 Adafruit_INA219 ina219;
@@ -12,13 +13,10 @@ int shuntState = 0;
 int loadState = 0;
 int currentState = 0;
 int powerState = 0;
+SoftwareSerial BTserial(10, 11);
 
 void setup() 
 {
-  Serial.begin(115200);
-  while (!Serial) {
-      delay(1);
-  }
   uint32_t currentFrequency;
   ina219.begin();
   ina219.setCalibration_16V_400mA();
@@ -27,6 +25,7 @@ void setup()
   pinMode(loadVoltageButton, INPUT);
   pinMode(currentButton, INPUT);
   pinMode(powerButton, INPUT);
+  BTserial.begin(9600);
 }
 
 void loop() 
@@ -45,31 +44,35 @@ void loop()
   if (busState == HIGH) 
   {
   busvoltage = ina219.getBusVoltage_V();
-  Serial.print("Shunt Voltage: "); Serial.print(shuntvoltage); Serial.println(" mV");
+  BTserial.print(busvoltage);
   }
   if (shuntState == HIGH) 
   {
     shuntvoltage = ina219.getShuntVoltage_mV();
-    Serial.print("Shunt Voltage: "); Serial.print(shuntvoltage); Serial.println(" mV");
+    BTserial.print(shuntvoltage);
+    BTserial.print(",");
   }
   if (loadState == HIGH) 
   {
   busvoltage = ina219.getBusVoltage_V();
   shuntvoltage = ina219.getShuntVoltage_mV();
   loadvoltage = busvoltage + (shuntvoltage / 1000);
-  Serial.print("Load Voltage:  "); Serial.print(loadvoltage); Serial.println(" V");
+  BTserial.print(loadvoltage);
+  BTserial.print(",");
   }
   if (currentState == HIGH) 
   {
   current_mA = ina219.getCurrent_mA();
-  Serial.print("Current:       "); Serial.print(current_mA); Serial.println(" mA");
+  BTserial.print(current_mA);
+  BTserial.print(",");
   }
   if (powerState == HIGH) 
   { 
   power_mW = ina219.getPower_mW();
-  Serial.print("Power:         "); Serial.print(power_mW); Serial.println(" mW");
+  BTserial.print(power_mW);
+  BTserial.print(",");
   }
   
-  Serial.println("");
+  BTserial.print(";");
   delay(2000);
 }
