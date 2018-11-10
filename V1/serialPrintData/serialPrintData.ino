@@ -3,73 +3,75 @@
 #include <Adafruit_INA219.h>
 
 Adafruit_INA219 ina219;
-const int busVoltageButton = 2; 
-const int shuntVoltageButton = 3;
-const int loadVoltageButton = 4;
-const int currentButton = 5;
-const int powerButton = 6;
-int busState = 0;
-int shuntState = 0;
-int loadState = 0;
-int currentState = 0;
-int powerState = 0;
+const int voltage16Button = 2; 
+const int voltage32Button = 3;
+const int current400Button = 4;
+const int current1Button = 5;
+const int current2Button = 6;
+int voltage16State = 0;
+int voltage32State = 0;
+int current400State = 0;
+int current1State = 0;
+int current2State = 0;
 SoftwareSerial BTserial(10, 11);
 
 void setup() 
 {
-  uint32_t currentFrequency;
   ina219.begin();
-  ina219.setCalibration_16V_400mA();
-  pinMode(busVoltageButton, INPUT);
-  pinMode(shuntVoltageButton, INPUT);
-  pinMode(loadVoltageButton, INPUT);
-  pinMode(currentButton, INPUT);
-  pinMode(powerButton, INPUT);
+  pinMode(voltage16Button, INPUT);
+  pinMode(voltage32Button, INPUT);
+  pinMode(current400Button, INPUT);
+  pinMode(current1Button, INPUT);
+  pinMode(current2Button, INPUT);
   BTserial.begin(9600);
 }
 
 void loop() 
 {
-  float busvoltage = 0;
-  float shuntvoltage = 0;
-  float loadvoltage = 0;
-  float current_mA = 0;
-  float power_mW = 0;
-  busState = digitalRead(busVoltageButton);
-  shuntState = digitalRead(shuntVoltageButton);
-  loadState = digitalRead(loadVoltageButton);
-  currentState = digitalRead(currentButton);
-  powerState = digitalRead(powerButton);
-
-  if (busState == HIGH) 
+  float voltage16 = 0;
+  float voltage32 = 0;
+  float current400 = 0;
+  float current1 = 0;
+  float current2 = 0;
+  voltage16State = digitalRead(voltage16Button);
+  voltage32State = digitalRead(voltage32Button);
+  current400State = digitalRead(current400Button);
+  current1State = digitalRead(current1Button);
+  current2State = digitalRead(current2Button);
+  
+  if (voltage16State == HIGH) 
   {
-  busvoltage = ina219.getBusVoltage_V();
-  BTserial.print(busvoltage);
-  }
-  if (shuntState == HIGH) 
-  {
-    shuntvoltage = ina219.getShuntVoltage_mV();
-    BTserial.print(shuntvoltage);
-    BTserial.print(",");
-  }
-  if (loadState == HIGH) 
-  {
-  busvoltage = ina219.getBusVoltage_V();
-  shuntvoltage = ina219.getShuntVoltage_mV();
-  loadvoltage = busvoltage + (shuntvoltage / 1000);
-  BTserial.print(loadvoltage);
+  ina219.setCalibration_16V_400mA();
+  voltage16 = ina219.getBusVoltage_V();
+  BTserial.print(voltage16);
   BTserial.print(",");
   }
-  if (currentState == HIGH) 
+  if (voltage32State == HIGH) 
   {
-  current_mA = ina219.getCurrent_mA();
-  BTserial.print(current_mA);
+  ina219.setCalibration_32V_1A();
+  voltage32 = ina219.getBusVoltage_V();
+  BTserial.print(voltage32);
   BTserial.print(",");
   }
-  if (powerState == HIGH) 
-  { 
-  power_mW = ina219.getPower_mW();
-  BTserial.print(power_mW);
+  if (current400State == HIGH) 
+  {
+  ina219.setCalibration_16V_400mA();
+  current400 = ina219.getCurrent_mA();
+  BTserial.print(current400);
+  BTserial.print(",");
+  }
+  if (current1State == HIGH) 
+  {
+  ina219.setCalibration_32V_1A();
+  current1 = ina219.getCurrent_mA();
+  BTserial.print(current1);
+  BTserial.print(",");
+  }
+  if (current2State == HIGH) 
+  {
+  ina219.setCalibration_32V_2A();
+  current2 = ina219.getCurrent_mA();
+  BTserial.print(current2);
   BTserial.print(",");
   }
   
