@@ -4,6 +4,9 @@
 
 Adafruit_INA219 ina219;
 byte flag = 0;
+char cM[1];
+char cS[1];
+char cA[1];
 
 void setup() {
   Serial.begin(115200);
@@ -14,6 +17,8 @@ void setup() {
   uint32_t currentFrequency;
 
   ina219.begin();
+
+
 }
 
 void loop() {
@@ -22,13 +27,35 @@ void loop() {
   float loadvoltage = 0;
 
   String inputCommand = Serial.readString();
-  StringSplitter *commands = new StringSplitter(inputCommand, ' ', 2);
+  StringSplitter *commands = new StringSplitter(inputCommand, ' ', 3);
   int itemCount = commands->getItemCount();
   
   String commandMain = commands->getItemAtIndex(0); 
   String commandSub = commands->getItemAtIndex(1);
-
+  String commandArg = commands->getItemAtIndex(2);
+  
   //Define State Machine Here
+  if(commandMain=="volt"){
+    while(1){
+      float volts = getVolts();
+      Serial.println(volts);
+      if(flag==0){
+        break;
+        }
+      }
+    } else if(commandMain=="current"){
+      while(1){
+      float curr = getAmps();
+      Serial.println(curr);
+      if(flag==0){
+        break;
+        }
+      }
+    } else {
+      Serial.println("Wrong input");
+      flag = 0;
+  }
+  
 }
 
 float getVolts(){
